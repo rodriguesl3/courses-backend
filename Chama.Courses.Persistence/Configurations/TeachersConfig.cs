@@ -11,7 +11,10 @@ namespace Chama.Courses.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Teacher> builder)
         {
-            
+            builder.Property(p => p.Id)
+                .ValueGeneratedOnAdd()
+                .IsRequired();
+
         }
     }
 }

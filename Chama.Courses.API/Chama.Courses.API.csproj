@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Chama.Courses.Application\Chama.Courses.Application.csproj" />
     <ProjectReference Include="..\Chama.Courses.Persistence\Chama.Courses.Persistence.csproj" />
   </ItemGroup>
 

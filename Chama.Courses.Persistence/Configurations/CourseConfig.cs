@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace Chama.Courses.Persistence.Configurations
@@ -14,6 +15,11 @@ namespace Chama.Courses.Persistence.Configurations
             builder.Property(p => p.Description)
                    .HasColumnType("varchar(50)")
                    .IsRequired();
+
+
+            builder.Property(p => p.Id)
+                .ValueGeneratedOnAdd()
+                .IsRequired();
             
         }
     }
