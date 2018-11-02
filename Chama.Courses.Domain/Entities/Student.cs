@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Chama.Courses.Domain.Entities
 {
-    public class Students
+    public class Student
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
 
-        public Students()
+        public Student()
         {
             Id = Guid.NewGuid();
         }

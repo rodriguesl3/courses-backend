@@ -7,11 +7,11 @@ using System.Text;
 
 namespace Chama.Courses.Persistence.Configurations
 {
-    public class TeachersConfig : IEntityTypeConfiguration<Teacher>
+    public class TeacherConfig : IEntityTypeConfiguration<Teacher>
     {
         public void Configure(EntityTypeBuilder<Teacher> builder)
         {
-            //throw new NotImplementedException();
+            
         }
     }
 }

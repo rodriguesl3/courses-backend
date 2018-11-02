@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Chama.Courses.Domain.Entities
 {
@@ -8,9 +7,10 @@ namespace Chama.Courses.Domain.Entities
     {
         public Guid Id { get; set; }
         public string Description { get; set; }
+        public Guid TeacherId { get; set; }
         public Teacher Teacher { get; set; }
         public int MaximumStudents { get; set; }
-        public virtual IEnumerable<Students> Students { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
 
         public Course()
         {

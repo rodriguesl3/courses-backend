@@ -11,7 +11,10 @@ namespace Chama.Courses.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Course> builder)
         {
-            //throw new NotImplementedException();
+            builder.Property(p => p.Description)
+                   .HasColumnType("varchar(50)")
+                   .IsRequired();
+            
         }
     }
 }

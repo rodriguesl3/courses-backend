@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Chama.Courses.Persistence.Configurations
 {
-    public class StudentsConfig : IEntityTypeConfiguration<Course>
+    public class StudentConfig : IEntityTypeConfiguration<Student>
     {
-        public void Configure(EntityTypeBuilder<Course> builder)
+        public void Configure(EntityTypeBuilder<Student> builder)
         {
             //throw new NotImplementedException();
         }

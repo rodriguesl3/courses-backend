@@ -19,15 +19,15 @@ namespace Chama.Courses.Persistence.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new CourseConfig());
-            modelBuilder.ApplyConfiguration(new TeachersConfig());
-            modelBuilder.ApplyConfiguration(new StudentsConfig());
+            modelBuilder.ApplyConfiguration(new TeacherConfig());
+            modelBuilder.ApplyConfiguration(new StudentConfig());
 
             base.OnModelCreating(modelBuilder);
         }
 
         public DbSet<Course> Courses { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Students> Students { get; set; }
+        public DbSet<Student> Students { get; set; }
     }
 
     
