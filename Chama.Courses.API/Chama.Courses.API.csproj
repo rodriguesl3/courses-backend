@@ -20,4 +20,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chama.Courses.Persistence\Chama.Courses.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
