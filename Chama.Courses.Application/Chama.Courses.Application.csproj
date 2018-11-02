@@ -4,4 +4,9 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chama.Courses.Domain\Chama.Courses.Domain.csproj" />
+    <ProjectReference Include="..\Chama.Courses.Persistence\Chama.Courses.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

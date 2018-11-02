@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Chama.Courses.Application.Implementations;
+using Chama.Courses.Application.Interfaces;
 using Chama.Courses.Persistence.Context;
+using Chama.Courses.Persistence.Repository.Implementation;
+using Chama.Courses.Persistence.Repository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -45,6 +49,8 @@ namespace Chama.Courses.API
                 });
             });
 
+            services.AddScoped<ISignupCourseApplication, SignupCourseApplication>();
+            services.AddScoped<ISignupCourseRepository, SignupCourseRepository>();
 
             services.AddSwaggerGen(c =>
             {
