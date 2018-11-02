@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Chama.Courses.Persistence.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -18,10 +20,6 @@ namespace Chama.Courses.API
     {
         public Startup(IConfiguration configuration)
         {
-
-            
-
-
             Configuration = configuration;
         }
 
@@ -31,7 +29,10 @@ namespace Chama.Courses.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-
+            services.AddDbContext<EfDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("ChamaConnectionString"));
+            });
 
             services.AddCors(options =>
             {
@@ -73,8 +74,9 @@ namespace Chama.Courses.API
             });
 
 
-            app.UseCors("AllowSpecificOrigins");
+           
             app.UseHttpsRedirection();
+            app.UseCors("AllowSpecificOrigins");
             app.UseMvc();
 
 
