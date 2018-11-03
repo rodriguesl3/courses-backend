@@ -58,8 +58,6 @@ namespace Chama.Courses.API.Controllers
                                        [FromServices] TelemetryClient telemetry,
                                         Student student)
         {
-
-            
             try
             {
 
@@ -77,11 +75,6 @@ namespace Chama.Courses.API.Controllers
 
                 return BadRequest("Probblem to process this request.");
             }
-
         }
-
-
-
-
     }
 }

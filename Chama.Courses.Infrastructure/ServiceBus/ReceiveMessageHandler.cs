@@ -67,7 +67,7 @@ namespace Chama.Courses.Infrastructure.ServiceBus
                 Console.WriteLine($"Received message: SequenceNumber:{message.SystemProperties.SequenceNumber} Body:{Encoding.UTF8.GetString(message.Body)}");
                 await messageSession.CompleteAsync(message.SystemProperties.LockToken);
             }
-            catch (SessionLockLostException err)
+            catch (SessionLockLostException)
             {
                 await messageSession.RenewSessionLockAsync();
                 await messageSession.CompleteAsync(message.SystemProperties.LockToken);
