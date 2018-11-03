@@ -1,22 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Chama.Courses.Application.Interfaces;
+﻿using Chama.Courses.Application.Interfaces;
+using Chama.Courses.Domain.Configuration;
 using Chama.Courses.Domain.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Chama.Courses.API.Controllers
 {
+
+
     [Route("api/[controller]")]
     [ApiController]
     public class CoursesController : ControllerBase
     {
+
+        private readonly string successfull = "You will receive an email, case if got it or not";
+        private readonly string fullCourse = "Oh no! Our course is full, do you mind choose another one?";
+
+
         [Route("api/[controller]/verify-signup/{id}")]
         [HttpGet]
         public IActionResult Get([FromServices] ISignupCourseApplication _signupApp, Guid id)
-        {            
+        {
             return Ok(_signupApp.CourseIsAvailable(id));
         }
 
@@ -31,10 +36,18 @@ namespace Chama.Courses.API.Controllers
 
         [Route("api/[controller]/sign-up-async")]
         [HttpPost]
-        public IActionResult PostAsync([FromServices] ISignupCourseApplication _signupApp, Student student)
+        public async Task<IActionResult> PostAsync([FromServices] ISignupCourseApplication _signupApp,
+                                       [FromServices] ServiceBusConfiguration serviceBusConfig,
+                                        Student student)
         {
-            _signupApp.SigningupCouseAsync(student);
-            return Ok();
+
+            if (student.Id == Guid.Empty)
+            {
+                student.Id = Guid.NewGuid();
+            }
+
+            var returnMessage = _signupApp.SigningupCourseAsync(student, serviceBusConfig).GetAwaiter().GetResult();
+            return Ok(returnMessage ? successfull : fullCourse);
         }
 
 

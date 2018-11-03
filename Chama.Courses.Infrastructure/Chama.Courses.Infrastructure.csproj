@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.ServiceBus" Version="3.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Chama.Courses.Domain\Chama.Courses.Domain.csproj" />
+    <ProjectReference Include="..\Chama.Courses.Persistence\Chama.Courses.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>
