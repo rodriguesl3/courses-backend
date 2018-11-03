@@ -44,10 +44,7 @@ namespace Chama.Courses.Test
 
             appMock.Setup(x => x.CourseIsAvailable(courseId)).Returns(true);
             appMock.Setup(x => x.SigningupCourse(student)).Returns(true);
-
-            appMock.Verify(x => x.CourseIsAvailable(courseId));
-
-
+            
             var expectAvailable = appMock.Object.CourseIsAvailable(courseId);
             var expect = repoMock.Object.SigningupCourse(student);
 
