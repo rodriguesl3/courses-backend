@@ -19,7 +19,8 @@ namespace Chama.Courses.Persistence.Repository.Implementation
         public bool CourseIsAvailable(Guid courseId)
         {
             var courseEntity = _db.Courses.FirstOrDefault(x => x.Id == courseId);
-            return courseEntity.MaximumStudents >= (courseEntity.Students?.Count ?? 0);
+            var students = _db.Students.Where(x => x.CourseId == courseId).ToList();
+            return courseEntity.MaximumStudents >= (students?.Count ?? 0);
         }
 
         public bool SigningupCourse(Student student)

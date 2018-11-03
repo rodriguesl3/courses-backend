@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Chama.Courses.Application.Implementations;
 using Chama.Courses.Application.Interfaces;
+using Chama.Courses.Domain.Configuration;
+using Chama.Courses.Infrastructure.Interfaces;
+using Chama.Courses.Infrastructure.ServiceBus;
 using Chama.Courses.Persistence.Context;
 using Chama.Courses.Persistence.Repository.Implementation;
 using Chama.Courses.Persistence.Repository.Interfaces;
@@ -11,6 +14,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Azure.ServiceBus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +42,12 @@ namespace Chama.Courses.API
                 options.UseSqlServer(Configuration.GetConnectionString("ChamaConnectionString"));
             });
 
+            var serviceBusConfiguration = new ServiceBusConfiguration();
+            new ConfigureFromConfigurationOptions<ServiceBusConfiguration>(
+                Configuration.GetSection("ServiceBus"))
+                .Configure(serviceBusConfiguration);
+
+            
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigins",
@@ -49,8 +59,20 @@ namespace Chama.Courses.API
                 });
             });
 
+
+            services.AddSingleton(serviceBusConfiguration);
             services.AddScoped<ISignupCourseApplication, SignupCourseApplication>();
             services.AddScoped<ISignupCourseRepository, SignupCourseRepository>();
+            services.AddScoped<IServiceBusInfrastructure, ServiceBusInfrastructure>();
+            services.AddSingleton<IReceiveMessageHandler, ReceiveMessageHandler>();
+
+            var serviceProvider = services.BuildServiceProvider();
+            var receiveMessage = serviceProvider.GetService<IReceiveMessageHandler>();
+
+            var queueClient = new QueueClient(serviceBusConfiguration.ConnectionString, serviceBusConfiguration.QueueName);
+
+            receiveMessage.ReceiveMessageAsync(queueClient);
+            
 
             services.AddSwaggerGen(c =>
             {
@@ -58,12 +80,12 @@ namespace Chama.Courses.API
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -79,14 +101,14 @@ namespace Chama.Courses.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Courses V1");
             });
 
-
            
+            
             app.UseHttpsRedirection();
             app.UseCors("AllowSpecificOrigins");
             app.UseMvc();
 
-
             
+
 
 
         }
