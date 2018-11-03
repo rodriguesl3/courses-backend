@@ -59,12 +59,14 @@ namespace Chama.Courses.API
                 });
             });
 
-
+            
             services.AddSingleton(serviceBusConfiguration);
             services.AddScoped<ISignupCourseApplication, SignupCourseApplication>();
             services.AddScoped<ISignupCourseRepository, SignupCourseRepository>();
             services.AddScoped<IServiceBusInfrastructure, ServiceBusInfrastructure>();
             services.AddSingleton<IReceiveMessageHandler, ReceiveMessageHandler>();
+            services.AddApplicationInsightsTelemetry(Configuration);
+
 
             var serviceProvider = services.BuildServiceProvider();
             var receiveMessage = serviceProvider.GetService<IReceiveMessageHandler>();
@@ -80,7 +82,6 @@ namespace Chama.Courses.API
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,8 +102,6 @@ namespace Chama.Courses.API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Courses V1");
             });
 
-           
-            
             app.UseHttpsRedirection();
             app.UseCors("AllowSpecificOrigins");
             app.UseMvc();

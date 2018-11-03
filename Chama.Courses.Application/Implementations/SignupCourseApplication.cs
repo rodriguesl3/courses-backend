@@ -29,27 +29,39 @@ namespace Chama.Courses.Application.Implementations
 
         public bool SigningupCourse(Student student)
         {
-            if (_signupRepo.CourseIsAvailable(student.CourseId))
+            try
             {
-                return _signupRepo.SigningupCourse(student);
-            }
+                if (_signupRepo.CourseIsAvailable(student.CourseId))
+                {
+                    return _signupRepo.SigningupCourse(student);
+                }
 
-            return false;
+                return false;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public async Task<bool>SigningupCourseAsync(Student student, ServiceBusConfiguration serviceBusConfig)
         {
-            if (_signupRepo.CourseIsAvailable(student.CourseId))
+            try
             {
-                _serviceBus.SendAsync(student, serviceBusConfig);
-
-                return true;
+                if (_signupRepo.CourseIsAvailable(student.CourseId))
+                {
+                    _serviceBus.SendAsync(student, serviceBusConfig);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
-            else
+            catch (Exception)
             {
-                return false;
+                throw;
             }
-            
         }
     }
 }

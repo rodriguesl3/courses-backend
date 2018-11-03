@@ -5,27 +5,23 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - API", "1 - API", "{93D48FBA-051B-41C4-88A1-2F42E2CB7D07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.Courses.API", "Chama.Courses.API\Chama.Courses.API.csproj", "{938D7FE9-4F74-4BCE-A8F1-47F2596FA9CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chama.Courses.API", "Chama.Courses.API\Chama.Courses.API.csproj", "{938D7FE9-4F74-4BCE-A8F1-47F2596FA9CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Application", "2 - Application", "{8AECD6EB-FEBE-4ADC-A78A-536D33259632}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.Courses.Application", "Chama.Courses.Application\Chama.Courses.Application.csproj", "{13C975E2-4834-44E0-955D-648E867112AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chama.Courses.Application", "Chama.Courses.Application\Chama.Courses.Application.csproj", "{13C975E2-4834-44E0-955D-648E867112AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domain", "3 - Domain", "{07EC3D0C-0898-451B-8565-7736D492A401}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.Courses.Domain", "Chama.Courses.Domain\Chama.Courses.Domain.csproj", "{BAFCC8D7-34A6-41CC-A11F-FAEFC71250FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chama.Courses.Domain", "Chama.Courses.Domain\Chama.Courses.Domain.csproj", "{BAFCC8D7-34A6-41CC-A11F-FAEFC71250FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Persistence", "4 - Persistence", "{E52A78D9-16D0-4AC6-8189-A138B0970F98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.Courses.Persistence", "Chama.Courses.Persistence\Chama.Courses.Persistence.csproj", "{C7FDAAAB-4C1B-476C-8308-8AA8678528E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chama.Courses.Persistence", "Chama.Courses.Persistence\Chama.Courses.Persistence.csproj", "{C7FDAAAB-4C1B-476C-8308-8AA8678528E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Infrastructure", "5 - Infrastructure", "{9AD6B4E1-F3B2-49BC-AADE-0CAE3087D77B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.Courses.Infrastructure", "Chama.Courses.Infrastructure\Chama.Courses.Infrastructure.csproj", "{16CF14CD-BB99-4DA1-A498-EDF72E62E21F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Cross Cutting", "6 - Cross Cutting", "{FBC791D1-253D-4475-A4F1-3B94A5ADF567}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chama.Courses.CrossCutting", "Chama.Courses.CrossCutting\Chama.Courses.CrossCutting.csproj", "{D5B00798-F536-4537-9595-EC0FA213FAC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Chama.Courses.Infrastructure", "Chama.Courses.Infrastructure\Chama.Courses.Infrastructure.csproj", "{16CF14CD-BB99-4DA1-A498-EDF72E62E21F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +49,6 @@ Global
 		{16CF14CD-BB99-4DA1-A498-EDF72E62E21F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16CF14CD-BB99-4DA1-A498-EDF72E62E21F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16CF14CD-BB99-4DA1-A498-EDF72E62E21F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5B00798-F536-4537-9595-EC0FA213FAC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5B00798-F536-4537-9595-EC0FA213FAC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5B00798-F536-4537-9595-EC0FA213FAC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5B00798-F536-4537-9595-EC0FA213FAC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,7 +59,6 @@ Global
 		{BAFCC8D7-34A6-41CC-A11F-FAEFC71250FB} = {07EC3D0C-0898-451B-8565-7736D492A401}
 		{C7FDAAAB-4C1B-476C-8308-8AA8678528E0} = {E52A78D9-16D0-4AC6-8189-A138B0970F98}
 		{16CF14CD-BB99-4DA1-A498-EDF72E62E21F} = {9AD6B4E1-F3B2-49BC-AADE-0CAE3087D77B}
-		{D5B00798-F536-4537-9595-EC0FA213FAC7} = {FBC791D1-253D-4475-A4F1-3B94A5ADF567}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A44CE7FC-9FB6-41B9-B596-4CFFBACA0CA6}
