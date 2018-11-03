@@ -1,6 +1,7 @@
 ﻿using Chama.Courses.Domain.Entities;
 using Chama.Courses.Infrastructure.Interfaces;
 using Chama.Courses.Persistence.Repository.Interfaces;
+using Microsoft.ApplicationInsights;
 using Microsoft.Azure.ServiceBus;
 using Newtonsoft.Json;
 using System;
@@ -15,10 +16,12 @@ namespace Chama.Courses.Infrastructure.ServiceBus
         private Object thisLock = new Object();
         private readonly ISignupCourseRepository _signupRepo;
         internal QueueClient _queueClient;
+        private readonly TelemetryClient _telemetry;
 
-        public ReceiveMessageHandler(ISignupCourseRepository signupRepo)
+        public ReceiveMessageHandler(ISignupCourseRepository signupRepo, TelemetryClient telemetry)
         {
             _signupRepo = signupRepo;
+            _telemetry = telemetry;
         }
 
         public void ReceiveMessageAsync(QueueClient serviceBusQueue)
@@ -61,7 +64,6 @@ namespace Chama.Courses.Infrastructure.ServiceBus
                     }
                 }
 
-
                 Console.WriteLine($"Received message: SequenceNumber:{message.SystemProperties.SequenceNumber} Body:{Encoding.UTF8.GetString(message.Body)}");
                 await messageSession.CompleteAsync(message.SystemProperties.LockToken);
             }
@@ -70,17 +72,12 @@ namespace Chama.Courses.Infrastructure.ServiceBus
                 await messageSession.RenewSessionLockAsync();
                 await messageSession.CompleteAsync(message.SystemProperties.LockToken);
             }
-
         }
 
         Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
         {
-            Console.WriteLine($"Message handler encountered an exception {exceptionReceivedEventArgs.Exception}.");
-            var context = exceptionReceivedEventArgs.ExceptionReceivedContext;
-            Console.WriteLine("Exception context for troubleshooting:");
-            Console.WriteLine($"- Endpoint: {context.Endpoint}");
-            Console.WriteLine($"- Entity Path: {context.EntityPath}");
-            Console.WriteLine($"- Executing Action: {context.Action}");
+            _telemetry.TrackException(exceptionReceivedEventArgs.Exception);
+
             return Task.CompletedTask;
         }
 
