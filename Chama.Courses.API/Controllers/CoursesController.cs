@@ -4,7 +4,7 @@ using Chama.Courses.Domain.Entities;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Chama.Courses.API.Controllers
@@ -47,7 +47,7 @@ namespace Chama.Courses.API.Controllers
                 telemetry.TrackException(ex);
                 return BadRequest("Probblem to process this request.");
             }
-            
+
         }
 
 
@@ -58,8 +58,6 @@ namespace Chama.Courses.API.Controllers
                                        [FromServices] TelemetryClient telemetry,
                                         Student student)
         {
-
-            
             try
             {
 
@@ -67,7 +65,7 @@ namespace Chama.Courses.API.Controllers
                 {
                     student.Id = Guid.NewGuid();
                 }
-                
+
                 var returnMessage = _signupApp.SigningupCourseAsync(student, serviceBusConfig).GetAwaiter().GetResult();
                 return Ok(returnMessage ? successfull : fullCourse);
             }
@@ -77,9 +75,45 @@ namespace Chama.Courses.API.Controllers
 
                 return BadRequest("Probblem to process this request.");
             }
-
+        }
+        
+        [HttpGet]
+        [Produces(typeof(Course))]
+        [Route("api/courses/detail/{id}")]
+        public IActionResult GetDetailCourse([FromServices] ISignupCourseApplication _signupApp,
+                                       [FromServices] ServiceBusConfiguration serviceBusConfig,
+                                       [FromServices] TelemetryClient telemetry,
+                                       Guid id)
+        {
+            try
+            {
+                var result = _signupApp.GetDetailCourse(id);
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Probblem to process this request.");
+            }
         }
 
+        [HttpGet]
+        [Produces(typeof(Course))]
+        [Route("api/courses/")]
+        public IActionResult GetListCourse([FromServices] ISignupCourseApplication _signupApp,
+                                       [FromServices] ServiceBusConfiguration serviceBusConfig,
+                                       [FromServices] TelemetryClient telemetry)
+        {
+            try
+            {
+                var result = _signupApp.GetListCourse()
+                                       .Select(x => new { x.Id, x.Description, x.TeacherId, x.MaximumAge, x.MinimumAge, x.AverageAge, x.Students.Count});
+                return Ok(result);
+            }
+            catch (Exception)
+            {
+                return BadRequest("Probblem to process this request.");
+            }
+        }
 
 
 

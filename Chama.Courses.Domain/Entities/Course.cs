@@ -12,11 +12,10 @@ namespace Chama.Courses.Domain.Entities
         public Guid TeacherId { get; set; }
         public Teacher Teacher { get; set; }
         public int MaximumStudents { get; set; }
+        public int MinimumAge { get; set; }
+        public int MaximumAge { get; set; }
+        public double AverageAge { get; set; }
         public virtual ICollection<Student> Students { get; set; }
-
-        //public Course()
-        //{
-        //    Id = Guid.NewGuid();
-        //}
+        
     }
 }

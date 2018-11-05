@@ -4,14 +4,16 @@ using Chama.Courses.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Chama.Courses.Persistence.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    partial class EfDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181104212144_CourseQueryTable")]
+    partial class CourseQueryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,17 +26,11 @@ namespace Chama.Courses.Persistence.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<double>("AverageAge");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
-                    b.Property<int>("MaximumAge");
-
                     b.Property<int>("MaximumStudents");
-
-                    b.Property<int>("MinimumAge");
 
                     b.Property<Guid>("TeacherId");
 
@@ -44,6 +40,26 @@ namespace Chama.Courses.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("Chama.Courses.Domain.Entities.CourseQuery", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<double>("AverageAge");
+
+                    b.Property<Guid>("CourseId");
+
+                    b.Property<int>("MaximumAge");
+
+                    b.Property<int>("MinimumAge");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.ToTable("CourseQueries");
                 });
 
             modelBuilder.Entity("Chama.Courses.Domain.Entities.Student", b =>
@@ -83,6 +99,14 @@ namespace Chama.Courses.Persistence.Migrations
                     b.HasOne("Chama.Courses.Domain.Entities.Teacher", "Teacher")
                         .WithOne("Course")
                         .HasForeignKey("Chama.Courses.Domain.Entities.Course", "TeacherId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Chama.Courses.Domain.Entities.CourseQuery", b =>
+                {
+                    b.HasOne("Chama.Courses.Domain.Entities.Course", "Course")
+                        .WithMany()
+                        .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

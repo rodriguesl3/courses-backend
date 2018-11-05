@@ -5,6 +5,7 @@ using Chama.Courses.Infrastructure.Interfaces;
 using Chama.Courses.Infrastructure.ServiceBus;
 using Chama.Courses.Persistence.Repository.Interfaces;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Chama.Courses.Application.Implementations
@@ -25,6 +26,32 @@ namespace Chama.Courses.Application.Implementations
         public bool CourseIsAvailable(Guid courseId)
         {
             return _signupRepo.CourseIsAvailable(courseId);
+        }
+
+       
+
+        public Course GetDetailCourse(Guid courseId)
+        {
+            try
+            {
+                return _signupRepo.GetDetailCourse(courseId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public IEnumerable<Course> GetListCourse()
+        {
+            try
+            {
+                return _signupRepo.GetListCourse();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public bool SigningupCourse(Student student)
