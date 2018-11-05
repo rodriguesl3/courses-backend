@@ -12,5 +12,7 @@ namespace Chama.Courses.Application.Interfaces
         bool SigningupCourse(Student student);
         Task<bool> SigningupCourseAsync(Student student, ServiceBusConfiguration serviceBusConfig);
         bool CourseIsAvailable(Guid courseId);
+        Course GetDetailCourse(Guid courseId);
+        IEnumerable<Course> GetListCourse();
     }
 }

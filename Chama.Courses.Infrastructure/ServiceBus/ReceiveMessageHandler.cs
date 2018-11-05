@@ -56,6 +56,7 @@ namespace Chama.Courses.Infrastructure.ServiceBus
                     if (_signupRepo.CourseIsAvailable(student.CourseId))
                     {
                         _signupRepo.SigningupCourse(student);
+                        
                         //TODO: Send Email
                     }
                     else
@@ -64,10 +65,10 @@ namespace Chama.Courses.Infrastructure.ServiceBus
                     }
                 }
 
-                Console.WriteLine($"Received message: SequenceNumber:{message.SystemProperties.SequenceNumber} Body:{Encoding.UTF8.GetString(message.Body)}");
+                
                 await messageSession.CompleteAsync(message.SystemProperties.LockToken);
             }
-            catch (SessionLockLostException err)
+            catch (SessionLockLostException)
             {
                 await messageSession.RenewSessionLockAsync();
                 await messageSession.CompleteAsync(message.SystemProperties.LockToken);
@@ -80,9 +81,5 @@ namespace Chama.Courses.Infrastructure.ServiceBus
 
             return Task.CompletedTask;
         }
-
-
-
-
     }
 }
