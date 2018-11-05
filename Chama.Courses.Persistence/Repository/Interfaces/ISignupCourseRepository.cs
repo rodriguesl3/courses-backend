@@ -9,5 +9,7 @@ namespace Chama.Courses.Persistence.Repository.Interfaces
     {
         bool SigningupCourse(Student student);
         bool CourseIsAvailable(Guid courseId);
+        Course GetDetailCourse(Guid courseId);
+        IEnumerable<Course> GetListCourse();
     }
 }

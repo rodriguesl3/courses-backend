@@ -3,6 +3,7 @@ using Chama.Courses.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Chama.Courses.Persistence.Context
@@ -15,6 +16,8 @@ namespace Chama.Courses.Persistence.Context
         {
 
         }
+
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
