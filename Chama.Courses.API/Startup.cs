@@ -37,7 +37,9 @@ namespace Chama.Courses.API
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddDbContext<EfDbContext>(options =>
+            services
+            .AddEntityFrameworkSqlServer()
+            .AddDbContext<EfDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ChamaConnectionString"));
             });
